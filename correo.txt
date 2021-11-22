@@ -1,0 +1,33 @@
+//origen
+            String origen = "camilocarvajalyoop@gmail.com";
+            //contraseña origen
+            String password = "Obscure123@";
+            //destino
+            String destino = Texto1.Text;
+            //mensaje
+            String msj = "<h1> hola</h1>";
+            //instancia a ojeto que recibe origen, destino, asunto del correo, y mensaje
+            MailMessage correo = new MailMessage(origen, destino, "Mensaje no se que hace ", msj);
+            //decimos que contiene html
+            correo.IsBodyHtml = true;
+            //
+            correo.BodyEncoding = System.Text.Encoding.UTF8;
+            correo.SubjectEncoding = System.Text.Encoding.UTF8;
+            //este envia el correo
+            SmtpClient cliente = new SmtpClient("smtp.gmail.com");
+            //establecemos el ssl
+            cliente.EnableSsl = true;
+            //credenciales por default?
+            cliente.UseDefaultCredentials = false;
+            //puerto de gmail o del correo
+            cliente.Port = 587;
+            //asignamos las credenciales
+            cliente.Credentials = new NetworkCredential(origen,password);
+            //enviamos correo
+            
+            cliente.Send(correo);
+            //finaliza conexion smtp
+            cliente.Dispose();
+            
+            Texto1.Text = correo.Body;
+            return;
